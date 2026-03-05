@@ -4,7 +4,7 @@
   tasks:
     - name: Write success to file
       copy:
-        content: "success\n"
+        content: "ofer success\n"
         dest: /tmp/ansible_output.txt
 
     - name: Print file content
@@ -14,3 +14,8 @@
     - name: Show result
       debug:
         msg: "{{ file_content.stdout }}"
+
+    - name: Push output to job artifacts
+      set_stats:
+        data:
+          file_content: "{{ file_content.stdout }}"
