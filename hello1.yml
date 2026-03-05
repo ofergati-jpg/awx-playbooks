@@ -19,4 +19,4 @@
       set_stats:
         data:
           file_content: "{{ file_content.stdout }}"
-          hostname: "{{ ansible_hostname }}"
+          hostname: "{{ inventory_hostname }}"
