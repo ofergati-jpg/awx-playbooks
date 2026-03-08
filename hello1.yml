@@ -10,13 +10,19 @@
     - name: Print file content
       shell: cat /tmp/ansible_output.txt
       register: file_content
+      when: not ansible_check_mode
 
     - name: Show result
       debug:
-        msg: "{{ file_content.stdout }}"
+        msg: "{{ file_content.stdout | default('check mode - not executed') }}"
+
+    - name: Restart a non-existing service
+      service:
+        name: fake_service_123
+        state: restarted
 
     - name: Push output to job artifacts
       set_stats:
         data:
-          file_content: "{{ file_content.stdout }}"
+          file_content: "{{ file_content.stdout | default('check mode - not executed') }}"
           hostname: "{{ inventory_hostname }}"
