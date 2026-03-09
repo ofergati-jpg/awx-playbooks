@@ -16,11 +16,6 @@
       debug:
         msg: "{{ file_content.stdout | default('check mode - not executed') }}"
 
-    - name: Restart a non-existing service
-      service:
-        name: fake_service_123
-        state: restarted
-
     - name: Push output to job artifacts
       set_stats:
         data:
